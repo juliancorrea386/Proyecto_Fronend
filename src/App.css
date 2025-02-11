@@ -1,0 +1,142 @@
+/* Estilos generales */
+.App {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  padding: 20px;
+}
+
+h2 {
+  text-align: center;
+  font-size: 1.2em;
+  margin-bottom: 7px;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 1em;
+  cursor: pointer;
+  background-color: #87CEEB; /* Azul pastel */
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #6CA6CD; /* Un tono más oscuro de azul pastel */
+}
+
+table {
+  width: 80%;
+  border-collapse: collapse;
+  margin: 20px auto; /* Centra la tabla horizontalmente */
+}
+
+th, td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background-color: #87CEEB; /* Azul pastel */
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-inner {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-height: 90%;
+  overflow-y: auto;
+  text-align: left;
+}
+
+label {
+  display: block;
+  margin: 10px 0;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
+  box-sizing: border-box;
+}
+
+/* Estilos de impresión */
+@media print {
+  body * {
+     }
+  .popup-inner, .popup-inner * {
+    visibility: visible;
+  }
+  .popup-inner {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+    background-color: white;
+    padding: 20px;
+    box-shadow: none;
+  }
+  .popup-inner h2, .popup-inner p, .popup-inner table {
+    margin: 0;
+    padding: 0;
+  }
+  .popup-inner table {
+    width: 95%;
+    border-collapse: collapse;
+  }
+  .popup-inner th, .popup-inner td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  .popup-inner th {
+    background-color: #87CEEB; /* Azul pastel */
+    color: white;
+  }
+  .popup-inner tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  .popup-inner tr:hover {
+    background-color: transparent;
+  }
+  .popup-inner button {
+    display: none;
+  }
+  .signature-section {
+    visibility: visible;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px; /* Reducir el espacio entre la tabla y las firmas */
+  }
+  .signature-section div {
+    text-align: center;
+    width: 45%; /* Ajustar el ancho para que no se salgan de los márgenes */
+  }
+}
