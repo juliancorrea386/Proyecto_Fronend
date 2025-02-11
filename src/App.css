@@ -1,46 +1,122 @@
 /* Estilos generales */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+/* Contenedor principal */
 .App {
   text-align: center;
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-  padding: 20px;
 }
 
-h2 {
-  text-align: center;
-  font-size: 1.2em;
-  margin-bottom: 7px;
-}
-
-button {
-  padding: 10px 20px;
-  margin: 10px;
-  font-size: 1em;
-  cursor: pointer;
-  background-color: #87CEEB; /* Azul pastel */
+/* Encabezado */
+.App-header {
+  background-color: #343a40;
   color: white;
-  border: none;
+  padding: 20px;
+  font-size: 1.5em;
+}
+
+/* Menú de navegación */
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  background-color: #007bff;
+  padding: 10px 0;
   border-radius: 5px;
 }
 
-button:hover {
-  background-color: #6CA6CD; /* Un tono más oscuro de azul pastel */
+nav ul li {
+  margin: 0 15px;
 }
 
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+nav ul li a:hover {
+  background-color: #0056b3;
+}
+
+/* Contenido */
+h1 {
+  font-size: 1.8em;
+  margin: 20px 0;
+}
+
+h2 {
+  font-size: 1.8em;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+button {
+  padding: 10px 15px;
+  margin: 10px;
+  font-size: 1em;
+  cursor: pointer;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.search-box {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Tabla estilizada */
 table {
-  width: 80%;
+  width: 100%;
   border-collapse: collapse;
-  margin: 20px auto; /* Centra la tabla horizontalmente */
+  margin-top: 20px;
+  background: white;
 }
 
 th, td {
   padding: 12px;
-  border: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
   text-align: left;
 }
 
 th {
-  background-color: #87CEEB; /* Azul pastel */
+  background-color: #3498db;
   color: white;
 }
 
@@ -49,9 +125,26 @@ tr:nth-child(even) {
 }
 
 tr:hover {
-  background-color: #ddd;
+  background-color: #d3e9ff;
 }
 
+/* Estilos para los botones dentro de la tabla */
+.action-btn {
+  padding: 5px 10px;
+  font-size: 0.9em;
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.action-btn:hover {
+  background-color: #27ae60;
+}
+
+/* Popup modal */
 .popup {
   position: fixed;
   top: 0;
@@ -69,13 +162,14 @@ tr:hover {
   padding: 20px;
   border-radius: 10px;
   width: 80%;
-  max-height: 90%;
-  overflow-y: auto;
+  max-height: 90vh; /* Máximo 90% de la altura de la pantalla */
+  overflow-y: auto; /* Agrega scroll vertical si el contenido es muy grande */
   text-align: left;
 }
 
 label {
   display: block;
+  font-weight: bold;
   margin: 10px 0;
 }
 
@@ -83,7 +177,8 @@ input, select {
   width: 100%;
   padding: 8px;
   margin: 5px 0;
-  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 /* Estilos de impresión */
