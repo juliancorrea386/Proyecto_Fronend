@@ -11,7 +11,7 @@ function App() {
     <Router>
       <div className="App">
         <header className="App-header">
-          <h1>Gestión de Productos</h1>
+          <h1>Sistema de gestion de provision de alimentos</h1>
           <nav>
             <ul>
               <li><Link to="/">Productos</Link></li>
