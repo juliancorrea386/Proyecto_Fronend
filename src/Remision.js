@@ -6,7 +6,7 @@ function Remision() {
   const [remisiones, setRemisiones] = useState([]);
   const [contratos, setContratos] = useState([]);
   const [rubros, setRubros] = useState([]);
-  const [productos, setProductos] = useState([]);
+  //const [productos, setProductos] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [showRemisionPopup, setShowRemisionPopup] = useState(false);
   const [selectedRemision, setSelectedRemision] = useState(null);
@@ -112,19 +112,6 @@ function Remision() {
     setProductos([]);
   };
 
-  const handleCreateNewRemision = () => {
-    setNewRemision({
-      fecha: '',
-      N_Contrato: '',
-      Id_rubro: '',
-      productos: [],
-      isEditing: false,
-      id_remision: null
-    });
-    setShowPopup(true);
-    setProductos([]);
-  };
-
   const handleProductChange = (id_producto, value, field) => {
     setNewRemision(prevState => ({
       ...prevState,
@@ -227,9 +214,7 @@ function Remision() {
     window.print();
   };
 
-  const formatCurrency = (value) => {
-    return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(value);
-  };
+  
 
   return (
     <div>
