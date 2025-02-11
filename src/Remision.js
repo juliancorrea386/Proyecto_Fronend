@@ -6,7 +6,7 @@ function Remision() {
   const [remisiones, setRemisiones] = useState([]);
   const [contratos, setContratos] = useState([]);
   const [rubros, setRubros] = useState([]);
-  const [productos, setProductos] = useState([]);
+  const [, setProductos] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [showRemisionPopup, setShowRemisionPopup] = useState(false);
   const [selectedRemision, setSelectedRemision] = useState(null);
