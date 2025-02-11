@@ -214,7 +214,7 @@ function Remision() {
     window.print();
   };
 
-  
+
 
   return (
     <div>
@@ -364,9 +364,9 @@ function Remision() {
               <tbody>
                 {selectedRemision
                   .filter(producto => producto.cantidad > 0)
-                  .map(producto => (
-                    <tr key={producto.id_producto}>
-                      <td>{producto.id_producto}</td>
+                  .map((producto, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td> {/* Se usa index + 1 para empezar desde 1 */}
                       <td>{producto.producto}</td>
                       <td>{producto.cantidad}</td>
                       <td></td>
