@@ -91,40 +91,49 @@ function Contratos() {
         console.error('Error al crear el contrato', error);
       });
   };
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getUTCFullYear();
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(date.getUTCDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(value);
+  };
 
   return (
     <div>
       <h2>Lista de Contratos</h2>
       <button onClick={() => setShowPopup(true)}>Crear Nuevo Contrato</button>
-      <table>
-        <thead>
-          <tr>
-            <th>N° Contrato</th>
-            <th>Objeto</th>
-            <th>Clase de Contrato</th>
-            <th>Fecha Inicio</th>
-            <th>Fecha Fin</th>
-            <th>Valor Contrato</th>
-            <th>Valor Consumido</th>
-            <th>Estado</th>
-          </tr>
-        </thead>
-        <tbody>
-          {contratos.map(contrato => (
-            <tr key={contrato.N_Contrato}>
-              <td>{contrato.N_Contrato}</td>
-              <td>{contrato.Objeto}</td>
-              <td>{contrato.Clase_de_contrato}</td>
-              <td>{contrato.Fecha_inicio}</td>
-              <td>{contrato.Fecha_fin}</td>
-              <td>{contrato.valor_contrato}</td>
-              <td>{contrato.valor_consumido}</td>
-              <td>{contrato.estado}</td>
+        <table>
+          <thead>
+            <tr>
+              <th>N° Contrato</th>
+              <th className="narrow-column">Objeto</th>
+              <th>Clase de Contrato</th>
+              <th>Fecha Inicio</th>
+              <th>Fecha Fin</th>
+              <th>Valor Contrato</th>
+              <th>Valor Consumido</th>
+              <th>Estado</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-
+          </thead>
+          <tbody>
+            {contratos.map(contrato => (
+              <tr key={contrato.N_Contrato}>
+                <td>{contrato.N_Contrato}</td>
+                <td className="narrow-column">{contrato.Objeto}</td>
+                <td>{contrato.Clase_de_contrato}</td>
+                <td>{formatDate(contrato.Fecha_inicio)}</td>
+                <td>{formatDate(contrato.Fecha_fin)}</td>
+                <td>{formatCurrency(contrato.valor_contrato)}</td>
+                <td>{formatCurrency(contrato.valor_consumido)}</td>
+                <td>{contrato.estado}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       {showPopup && (
         <div className="popup">
           <div className="popup-inner">
@@ -175,7 +184,7 @@ function Contratos() {
               </label>
               <label>
                 Valor Rubro:
-                <input type="number" name="Valor_Rubro" value={selectedRubro.Valor_Rubro} onChange={handleRubroChange}  />
+                <input type="number" name="Valor_Rubro" value={selectedRubro.Valor_Rubro} onChange={handleRubroChange} />
               </label>
               <label>
                 Valor Rubro Consumido:

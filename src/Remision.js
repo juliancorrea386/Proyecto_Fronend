@@ -20,11 +20,13 @@ function Remision() {
   });
 
   const [searchTerm, setSearchTerm] = useState('');
-
+  const [productSearchTerm, setProductSearchTerm] = useState('');
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
-
+  const handleProductSearchChange = (e) => {
+    setProductSearchTerm(e.target.value);
+  };
   useEffect(() => {
     if (newRemision.N_Contrato) {
       axios.get(`https://proyectobackend-production-d069.up.railway.app/contratos/${newRemision.N_Contrato}/rubros`)
@@ -107,7 +109,8 @@ function Remision() {
       Id_rubro: '',
       productos: [],
       isEditing: false,
-      id_remision: null
+      id_remision: null,
+      searchTerm: ''
     });
     setProductos([]);
   };
@@ -214,7 +217,17 @@ function Remision() {
     window.print();
   };
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getUTCFullYear();
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(date.getUTCDate()).padStart(2, '0');
+    return `${day}-${month}-${year}`;
+  };
 
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(value);
+  };
 
   return (
     <div>
@@ -247,7 +260,7 @@ function Remision() {
             .map(remision => (
               <tr key={remision.id_remision}>
                 <td>{remision.id_remision}</td>
-                <td>{remision.fecha}</td>
+                <td>{formatDate(remision.fecha)}</td>
                 <td>{remision.N_Contrato}</td>
                 <td>{remision.rubro_nombre}</td>
                 <td>
@@ -290,6 +303,12 @@ function Remision() {
               {newRemision.productos.length > 0 && (
                 <div>
                   <h3>Productos Relacionados</h3>
+                  <input
+                    type="text"
+                    placeholder="Buscar productos"
+                    value={productSearchTerm}
+                    onChange={handleProductSearchChange}
+                  />
                   <table>
                     <thead>
                       <tr>
@@ -302,36 +321,38 @@ function Remision() {
                       </tr>
                     </thead>
                     <tbody>
-                      {newRemision.productos.map(producto => (
-                        <tr key={producto.id_producto}>
-                          <td>{producto.id_producto}</td>
-                          <td>{producto.nombre}</td>
-                          <td>
-                            <input
-                              type="decimal"
-                              value={producto.valor_costo}
-                              onChange={(e) => handleProductChange(producto.id_producto, e.target.value, 'valor_costo')}
-                              min="0"
-                            />
-                          </td>
-                          <td>
-                            <input
-                              type="decimal"
-                              value={producto.valor_venta}
-                              onChange={(e) => handleProductChange(producto.id_producto, e.target.value, 'valor_venta')}
-                              min="0"
-                            />
-                          </td>
-                          <td>{producto.estado}</td>
-                          <td>
-                            <input
-                              type="number"
-                              value={producto.cantidad}
-                              onChange={(e) => handleProductChange(producto.id_producto, e.target.value, 'cantidad')}
-                              min="0"
-                            />
-                          </td>
-                        </tr>
+                      {newRemision.productos.filter(producto =>
+                        producto.nombre?.toLowerCase().includes(productSearchTerm.toLowerCase())
+                      ).map(producto => (
+                      <tr key={producto.id_producto}>
+                        <td>{producto.id_producto}</td>
+                        <td>{producto.nombre}</td>
+                        <td>
+                          <input
+                            type="decimal"
+                            value={formatCurrency(producto.valor_costo)}
+                            onChange={(e) => handleProductChange(producto.id_producto, e.target.value, 'valor_costo')}
+                            min="0"
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="decimal"
+                            value={formatCurrency(producto.valor_venta)}
+                            onChange={(e) => handleProductChange(producto.id_producto, e.target.value, 'valor_venta')}
+                            min="0"
+                          />
+                        </td>
+                        <td>{producto.estado}</td>
+                        <td>
+                          <input
+                            type="number"
+                            value={producto.cantidad}
+                            onChange={(e) => handleProductChange(producto.id_producto, e.target.value, 'cantidad')}
+                            min="0"
+                          />
+                        </td>
+                      </tr>
                       ))}
                     </tbody>
                   </table>
@@ -349,7 +370,7 @@ function Remision() {
           <div className="popup-inner">
             <h2>REMISION PEDIDOS {selectedRemision[0].rubro} SERVICIO DE ALIMENTACION HDMI</h2>
             <p><strong>ID:</strong>00{selectedRemision[0].id_remision}</p>
-            <p><strong>Fecha:</strong> {selectedRemision[0].fecha}</p>
+            <p><strong>Fecha:</strong> {formatDate(selectedRemision[0].fecha)}</p>
             <h3>Productos</h3>
             <table>
               <thead>
