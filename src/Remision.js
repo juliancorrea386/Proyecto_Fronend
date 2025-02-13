@@ -353,7 +353,7 @@ function Remision() {
     formData.append('file', file);
     formData.append('Id_rubro', newRemision.Id_rubro); // Añadir Id_rubro al formData
 
-    axios.post('http://localhost:3001/upload', formData, {
+    axios.post('https://proyectobackend-production-d069.up.railway.app/upload', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
