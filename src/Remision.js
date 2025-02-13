@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './App.css';
-
+import { PDFDownloadLink, Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
 function Remision() {
   const [remisiones, setRemisiones] = useState([]);
   const [contratos, setContratos] = useState([]);
@@ -17,6 +17,52 @@ function Remision() {
     productos: [],
     isEditing: false,
     id_remision: null
+  });
+  const styles = StyleSheet.create({
+    page: {
+      padding: 30,
+    },
+    image: {
+      width: '100%',
+      height: 'auto',
+      marginBottom: 20,
+    },
+    section: {
+      margin: 10,
+      padding: 10,
+      flexGrow: 1,
+    },
+    table: {
+      display: "table",
+      width: "auto",
+      borderStyle: "solid",
+      borderWidth: 1,
+      borderRightWidth: 0,
+      borderBottomWidth: 0,
+    },
+    tableRow: {
+      flexDirection: "row",
+    },
+    tableCol: {
+      width: "20%",
+      borderStyle: "solid",
+      borderWidth: 1,
+      borderLeftWidth: 0,
+      borderTopWidth: 0,
+    },
+    tableCell: {
+      margin: "auto",
+      marginTop: 5,
+      fontSize: 10,
+    },
+    signatureSection: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginTop: 20,
+    },
+    signature: {
+      textAlign: 'center',
+    },
   });
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -114,6 +160,70 @@ function Remision() {
     });
     setProductos([]);
   };
+  const MyDocument = ({ remision }) => (
+    <Document>
+      <Page size="A4" style={styles.page}>
+        <Image src="/banner.png" style={styles.image} />
+        <Text style={{ fontSize: 20, textAlign: 'center', marginBottom: 20 }}>
+          REMISION PEDIDOS {remision[0].rubro} SERVICIO DE ALIMENTACION HDMI
+        </Text>
+        <Text>ID: 00{remision[0].id_remision}</Text>
+        <Text>Fecha: {formatDate(remision[0].fecha)}</Text>
+        <View style={styles.table}>
+          <View style={styles.tableRow}>
+            <View style={styles.tableCol}>
+              <Text style={styles.tableCell}>No Remision</Text>
+            </View>
+            <View style={styles.tableCol}>
+              <Text style={styles.tableCell}>Nombre</Text>
+            </View>
+            <View style={styles.tableCol}>
+              <Text style={styles.tableCell}>Cantidad Requerida</Text>
+            </View>
+            <View style={styles.tableCol}>
+              <Text style={styles.tableCell}>Recibidas</Text>
+            </View>
+            <View style={styles.tableCol}>
+              <Text style={styles.tableCell}>Pendientes</Text>
+            </View>
+          </View>
+          {remision
+            .filter(producto => producto.cantidad > 0)
+            .map((producto, index) => (
+              <View style={styles.tableRow} key={index}>
+                <View style={styles.tableCol}>
+                  <Text style={styles.tableCell}>{index + 1}</Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text style={styles.tableCell}>{producto.producto}</Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text style={styles.tableCell}>{producto.cantidad}</Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text style={styles.tableCell}></Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text style={styles.tableCell}></Text>
+                </View>
+              </View>
+            ))}
+        </View>
+        <View style={styles.signatureSection}>
+          <View style={styles.signature}>
+            <Text>____________________</Text>
+            <Text>Firma de quien recibe</Text>
+            <Text>Servicio De Alimentación</Text>
+          </View>
+          <View style={styles.signature}>
+            <Text>____________________</Text>
+            <Text>Firma de quien entrega</Text>
+            <Text>Freskohogar</Text>
+          </View>
+        </View>
+      </Page>
+    </Document>
+  );
 
   const handleProductChange = (id_producto, value, field) => {
     setNewRemision(prevState => ({
@@ -223,10 +333,6 @@ function Remision() {
       .catch(error => {
         console.error('Error al obtener la remisión', error);
       });
-  };
-
-  const handlePrint = () => {
-    window.print();
   };
 
   const formatDate = (dateString) => {
@@ -406,7 +512,6 @@ function Remision() {
       {showRemisionPopup && selectedRemision && (
         <div className="popup">
           <div className="popup-inner">
-            <img src="/banner.png" alt="Encabezado" style={{ width: '100%', height: 'auto' }} />
             <h2>REMISION PEDIDOS {selectedRemision[0].rubro} SERVICIO DE ALIMENTACION HDMI</h2>
             <p><strong>ID:</strong>00{selectedRemision[0].id_remision}</p>
             <p><strong>Fecha:</strong> {formatDate(selectedRemision[0].fecha)}</p>
@@ -447,7 +552,14 @@ function Remision() {
                 <p>Freskohogar</p>
               </div>
             </div>
-            <button onClick={handlePrint}>Imprimir</button>
+            <PDFDownloadLink
+              document={<MyDocument remision={selectedRemision} />}
+              fileName={`remision_${selectedRemision[0].id_remision}.pdf`}
+            >
+              {({ blob, url, loading, error }) =>
+                loading ? 'Generando PDF...' : 'Descargar PDF'
+              }
+            </PDFDownloadLink>
             <button onClick={() => setShowRemisionPopup(false)}>Cerrar</button>
           </div>
         </div>
