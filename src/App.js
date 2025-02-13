@@ -4,6 +4,7 @@ import Productos from './Productos';
 import Remision from './Remision';
 import Contratos from './Contratos';
 import Consolidado from './Consolidado'; // Importa el nuevo componente
+import Prueba from './prueba'; // Importa el nuevo componente
 import './App.css';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
               <li><Link to="/remision">Remisión</Link></li>
               <li><Link to="/contratos">Contratos</Link></li>
               <li><Link to="/consolidado">Consolidado</Link></li> {/* Añade el enlace para Consolidado */}
+              <li><Link to="/prueba">Prueba</Link></li> 
             </ul>
           </nav>
         </header>
@@ -26,6 +28,7 @@ function App() {
           <Route path="/remision" element={<Remision />} />
           <Route path="/contratos" element={<Contratos />} />
           <Route path="/consolidado" element={<Consolidado />} /> {/* Añade la ruta para Consolidado */}
+          <Route path="/prueba" element={<Prueba />}/>
         </Routes>
       </div>
     </Router>

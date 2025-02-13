@@ -25,6 +25,7 @@ body {
   font-size: 1.5em;
 }
 
+
 /* Menú de navegación */
 nav ul {
   list-style: none;
@@ -105,7 +106,7 @@ button:hover {
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin-top: 30px;
   background: white;
 }
 
@@ -118,6 +119,7 @@ th, td {
 th {
   background-color: #3498db;
   color: white;
+  text-align: left;
 }
 
 tr:nth-child(even) {
@@ -127,6 +129,7 @@ tr:nth-child(even) {
 tr:hover {
   background-color: #d3e9ff;
 }
+
 
 /* Estilos para los botones dentro de la tabla */
 .action-btn {
@@ -184,7 +187,8 @@ input, select {
 /* Estilos de impresión */
 @media print {
   body * {
-     }
+    visibility: hidden;
+  }
   .popup-inner, .popup-inner * {
     visibility: visible;
   }
@@ -203,7 +207,7 @@ input, select {
     padding: 0;
   }
   .popup-inner table {
-    width: 95%;
+    width: 100%;
     border-collapse: collapse;
   }
   .popup-inner th, .popup-inner td {
@@ -233,5 +237,18 @@ input, select {
   .signature-section div {
     text-align: center;
     width: 45%; /* Ajustar el ancho para que no se salgan de los márgenes */
+  }
+  /* Control de saltos de página */
+  .popup-inner tr {
+    page-break-inside: avoid;
+  }
+  .popup-inner thead {
+    display: table-header-group; /* Asegura que el encabezado se repita en cada página */
+  }
+  .popup-inner tbody {
+    display: table-row-group;
+  }
+  .popup-inner tfoot {
+    display: table-footer-group;
   }
 }

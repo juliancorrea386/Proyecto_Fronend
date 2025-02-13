@@ -57,7 +57,7 @@ function Productos() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const productToSave = editProduct ? editProduct : newProduct;
-    const url = editProduct ? `https://proyectobackend-production-d069.up.railway.app/${editProduct.id_producto}` : 'https://proyectobackend-production-d069.up.railway.app/productos';
+    const url = editProduct ? `https://proyectobackend-production-d069.up.railway.app/productos/${editProduct.id_producto}` : 'https://proyectobackend-production-d069.up.railway.app/productos';
     const method = editProduct ? axios.put : axios.post;
 
     console.log('Producto a guardar:', productToSave); // Verificar los datos del producto a guardar
@@ -117,9 +117,9 @@ function Productos() {
               producto.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
               producto.rubro_nombre.toLowerCase().includes(searchTerm.toLowerCase())
             )
-            .map(producto => (
-              <tr key={producto.id_producto}>
-                <td>{producto.id_producto}</td>
+            .map((producto,index) => (
+              <tr key={index}>
+                <td>{index + 1}</td>
                 <td>{producto.nombre}</td>
                 <td>{formatCurrency(producto.valor_costo)}</td>
                 <td>{formatCurrency(producto.valor_venta)}</td>
