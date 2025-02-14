@@ -21,7 +21,7 @@ function Productos() {
   };
 
   useEffect(() => {
-    axios.get('proyecto_backend.railway.internal:3000/productos')
+    axios.get('https://proyectobackend-production-d069.up.railway.app/productos')
       .then(response => {
         console.log('Productos obtenidos:', response.data); // Verificar los datos obtenidos
         setProductos(response.data);
