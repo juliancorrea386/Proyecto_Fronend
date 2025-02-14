@@ -63,7 +63,6 @@ function Consolidado() {
   })
     .then(response => {
       const data = response.data;
-      console.log('Datos recibidos:', data); // Ver los datos recibidos
 
       const fechasSet = new Set(data.map(item => item.fecha.split('T')[0]));
       const fechasArray = Array.from(fechasSet).sort(); // Ordenar fechas de manera ascendente

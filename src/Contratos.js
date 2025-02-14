@@ -34,7 +34,6 @@ function Contratos() {
 
     axios.get('https://proyectobackend-production-d069.up.railway.app/rubros')
       .then(response => {
-        console.log('Rubros obtenidos:', response.data); // Verificar los datos obtenidos
         setRubros(response.data);
       })
       .catch(error => {
@@ -53,7 +52,6 @@ function Contratos() {
   };
 
   const addRubro = () => {
-    console.log('Rubro seleccionado:', selectedRubro); // Verificar los datos del rubro seleccionado
     if (selectedRubro.Id_rubro) {
       setNewContrato({
         ...newContrato,

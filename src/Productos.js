@@ -23,7 +23,6 @@ function Productos() {
   useEffect(() => {
     axios.get('https://proyectobackend-production-d069.up.railway.app/productos')
       .then(response => {
-        console.log('Productos obtenidos:', response.data); // Verificar los datos obtenidos
         setProductos(response.data);
       })
       .catch(error => {
@@ -32,7 +31,6 @@ function Productos() {
 
     axios.get('https://proyectobackend-production-d069.up.railway.app/rubros')
       .then(response => {
-        console.log('Rubros obtenidos:', response.data); // Verificar los datos obtenidos
         setRubros(response.data);
       })
       .catch(error => {
@@ -57,11 +55,9 @@ function Productos() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const productToSave = editProduct ? editProduct : newProduct;
-    const url = editProduct ? `https://proyectobackend-production-d069.up.railway.app/productos/${editProduct.id_producto}` : 'https://proyectobackend-production-d069.up.railway.app/productos';
+    const url = editProduct ? `https://proyectobackend-production-d069.up.railway.app/${editProduct.id_producto}` : 'https://proyectobackend-production-d069.up.railway.app/productos';
     const method = editProduct ? axios.put : axios.post;
-
-    console.log('Producto a guardar:', productToSave); // Verificar los datos del producto a guardar
-
+    
     method(url, productToSave)
       .then(response => {
         if (editProduct) {
