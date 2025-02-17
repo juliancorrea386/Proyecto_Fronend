@@ -12,7 +12,7 @@ const Login = ({ setIsAuthenticated }) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3001/login', {
+      const response = await axios.post('https://proyectobackend-production-d069.up.railway.app/login', {
         Usuario: username,
         Contrasena: password
       });
