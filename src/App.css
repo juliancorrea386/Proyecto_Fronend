@@ -232,7 +232,7 @@ input, select {
     visibility: visible;
     display: flex;
     justify-content: space-between;
-    margin-top: 50px; /* Reducir el espacio entre la tabla y las firmas */
+    margin-top: 75px; /* Reducir el espacio entre la tabla y las firmas */
   }
   .signature-section div {
     text-align: center;

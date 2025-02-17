@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './App.css';
-import { PDFDownloadLink, Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
+import { PDFDownloadLink, Document, Page, Text, View, Image } from '@react-pdf/renderer';
+
+import pdfStyles from "./pdfStyles"; // Importa los estilos
+
+
 function Remision() {
   const [remisiones, setRemisiones] = useState([]);
   const [contratos, setContratos] = useState([]);
@@ -18,52 +22,7 @@ function Remision() {
     isEditing: false,
     id_remision: null
   });
-  const styles = StyleSheet.create({
-    page: {
-      padding: 30,
-    },
-    image: {
-      width: '100%',
-      height: 'auto',
-      marginBottom: 20,
-    },
-    section: {
-      margin: 10,
-      padding: 10,
-      flexGrow: 1,
-    },
-    table: {
-      display: "table",
-      width: "auto",
-      borderStyle: "solid",
-      borderWidth: 1,
-      borderRightWidth: 0,
-      borderBottomWidth: 0,
-    },
-    tableRow: {
-      flexDirection: "row",
-    },
-    tableCol: {
-      width: "20%",
-      borderStyle: "solid",
-      borderWidth: 1,
-      borderLeftWidth: 0,
-      borderTopWidth: 0,
-    },
-    tableCell: {
-      margin: "auto",
-      marginTop: 5,
-      fontSize: 10,
-    },
-    signatureSection: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      marginTop: 20,
-    },
-    signature: {
-      textAlign: 'center',
-    },
-  });
+  
 
   const [searchTerm, setSearchTerm] = useState('');
   const [productSearchTerm, setProductSearchTerm] = useState('');
@@ -162,60 +121,60 @@ function Remision() {
   };
   const MyDocument = ({ remision }) => (
     <Document>
-      <Page size="A4" style={styles.page}>
-        <Image src="/banner.png" style={styles.image} />
-        <Text style={{ fontSize: 20, textAlign: 'center', marginBottom: 20 }}>
+      <Page size="A4" style={pdfStyles.page}>
+        <Image src="/banner.png" style={pdfStyles.image} />
+        <Text style={{ fontSize: 15, textAlign: 'center', marginBottom: 10 }}>
           REMISION PEDIDOS {remision[0].rubro} SERVICIO DE ALIMENTACION HDMI
         </Text>
-        <Text>ID: 00{remision[0].id_remision}</Text>
-        <Text>Fecha: {formatDate(remision[0].fecha)}</Text>
-        <View style={styles.table}>
-          <View style={styles.tableRow}>
-            <View style={styles.tableCol}>
-              <Text style={styles.tableCell}>No Remision</Text>
+        <Text style={{ fontSize: 14 }}>No de remision: 00{remision[0].id_remision}</Text>
+        <Text style={{ fontSize: 14 }}>Fecha: {formatDate(remision[0].fecha)}</Text>
+        <View style={pdfStyles.table}>
+          <View style={pdfStyles.tableRow}>
+            <View style={pdfStyles.tableColNoRemision}>
+              <Text style={pdfStyles.tableCell}>No</Text>
             </View>
-            <View style={styles.tableCol}>
-              <Text style={styles.tableCell}>Nombre</Text>
+            <View style={pdfStyles.tableColNombre}>
+              <Text style={pdfStyles.tableCell}>Nombre</Text>
             </View>
-            <View style={styles.tableCol}>
-              <Text style={styles.tableCell}>Cantidad Requerida</Text>
+            <View style={pdfStyles.tableColCantidad}>
+              <Text style={pdfStyles.tableCell}>Cantidad Requerida</Text>
             </View>
-            <View style={styles.tableCol}>
-              <Text style={styles.tableCell}>Recibidas</Text>
+            <View style={pdfStyles.tableColRecibidas}>
+              <Text style={pdfStyles.tableCell}>Recibidas</Text>
             </View>
-            <View style={styles.tableCol}>
-              <Text style={styles.tableCell}>Pendientes</Text>
+            <View style={pdfStyles.tableColPendientes}>
+              <Text style={pdfStyles.tableCell}>Pendientes</Text>
             </View>
           </View>
           {remision
             .filter(producto => producto.cantidad > 0)
             .map((producto, index) => (
-              <View style={styles.tableRow} key={index}>
-                <View style={styles.tableCol}>
-                  <Text style={styles.tableCell}>{index + 1}</Text>
+              <View style={pdfStyles.tableRow} key={index} wrap={false}>
+                <View style={pdfStyles.tableColNoRemision}>
+                  <Text style={pdfStyles.tableCell}>{index + 1}</Text>
                 </View>
-                <View style={styles.tableCol}>
-                  <Text style={styles.tableCell}>{producto.producto}</Text>
+                <View style={pdfStyles.tableColNombre}>
+                  <Text style={pdfStyles.tableCell}>{producto.producto}</Text>
                 </View>
-                <View style={styles.tableCol}>
-                  <Text style={styles.tableCell}>{producto.cantidad}</Text>
+                <View style={pdfStyles.tableColCantidad}>
+                  <Text style={pdfStyles.tableCell}>{producto.cantidad}</Text>
                 </View>
-                <View style={styles.tableCol}>
-                  <Text style={styles.tableCell}></Text>
+                <View style={pdfStyles.tableColRecibidas}>
+                  <Text style={pdfStyles.tableCell}></Text>
                 </View>
-                <View style={styles.tableCol}>
-                  <Text style={styles.tableCell}></Text>
+                <View style={pdfStyles.tableColPendientes}>
+                  <Text style={pdfStyles.tableCell}></Text>
                 </View>
               </View>
             ))}
         </View>
-        <View style={styles.signatureSection}>
-          <View style={styles.signature}>
+        <View style={pdfStyles.signatureSection}>
+          <View style={pdfStyles.signature}>
             <Text>____________________</Text>
             <Text>Firma de quien recibe</Text>
             <Text>Servicio De Alimentación</Text>
           </View>
-          <View style={styles.signature}>
+          <View style={pdfStyles.signature}>
             <Text>____________________</Text>
             <Text>Firma de quien entrega</Text>
             <Text>Freskohogar</Text>
@@ -513,13 +472,13 @@ function Remision() {
         <div className="popup">
           <div className="popup-inner">
             <h2>REMISION PEDIDOS {selectedRemision[0].rubro} SERVICIO DE ALIMENTACION HDMI</h2>
-            <p><strong>ID:</strong>00{selectedRemision[0].id_remision}</p>
+            <p><strong>No de remision:</strong>00{selectedRemision[0].id_remision}</p>
             <p><strong>Fecha:</strong> {formatDate(selectedRemision[0].fecha)}</p>
             <h3>Productos</h3>
             <table>
               <thead>
                 <tr>
-                  <th>No Remision</th>
+                  <th>No</th>
                   <th>Nombre</th>
                   <th>Cantidad Requerida</th>
                   <th>Recibidas</th>
@@ -528,12 +487,12 @@ function Remision() {
               </thead>
               <tbody>
                 {selectedRemision
-                  .filter(producto => producto.cantidad > 0)
-                  .map((producto, index) => (
+                  .filter(item => item.cantidad > 0)
+                  .map((item, index) => (
                     <tr key={index}>
                       <td>{index + 1}</td>
-                      <td>{producto.producto}</td>
-                      <td>{producto.cantidad}</td>
+                      <td>{item.producto}</td>
+                      <td>{item.cantidad}</td>
                       <td></td>
                       <td></td>
                     </tr>
