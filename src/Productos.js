@@ -21,7 +21,7 @@ function Productos() {
   };
 
   useEffect(() => {
-    axios.get('https://proyectobackend-production-d069.up.railway.app/productos')
+    axios.get('https://proyecto_backend.railway.internal/productos')
       .then(response => {
         setProductos(response.data);
       })
