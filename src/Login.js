@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './Login.css'; // Importa el archivo CSS
 import axios from 'axios'; // Importa axios para hacer solicitudes HTTP
 
-const Login = ({ setIsAuthenticated }) => {
+const Login = ({ setIsAuthenticated, setUserRole }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -19,7 +19,9 @@ const Login = ({ setIsAuthenticated }) => {
 
       if (response.status === 200) {
         localStorage.setItem('isAuthenticated', 'true'); // Guarda el estado de autenticación en localStorage
+        localStorage.setItem('userRole', response.data.rol); // Guarda el rol del usuario en localStorage
         setIsAuthenticated(true);
+        setUserRole(response.data.rol);
         navigate('/productos');
       }
     } catch (error) {

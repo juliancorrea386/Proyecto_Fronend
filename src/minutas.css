@@ -1,0 +1,15 @@
+.table-container {
+    overflow-x: auto;
+    max-width: 100%;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    border: 1px solid #000000;
+    padding: 8px;
+  }
+  
